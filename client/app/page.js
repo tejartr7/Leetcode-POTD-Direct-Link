@@ -7,7 +7,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchQuestion = async () => {
-      const { data } = await axios.get("http://localhost:8000/leetcode/dailyChallenge",{});
+      const { data } = await axios.get("https://lcpotdbackend.onrender.com/leetcode/dailyChallenge",{});
       setQuestion(data);
     };
     if (!question)

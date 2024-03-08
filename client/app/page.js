@@ -1,37 +1,61 @@
-'use client';
+"use client";
 import axios from "axios";
-import {useState, useEffect} from "react";
-import { redirect } from 'next/navigation'
+import { useState, useEffect } from "react";
+import { redirect } from "next/navigation";
+import ThemeSwitch from "./switch";
+
+// Define the Home component
 export default function Home() {
+  // Initialize state variables
   const [question, setQuestion] = useState(null);
 
+  // Fetch data on component mount
   useEffect(() => {
     const fetchQuestion = async () => {
-      const { data } = await axios.get("https://lcpotdbackend.onrender.com/leetcode/dailyChallenge",{});
+      const { data } = await axios.get(
+        "https://lcpotdbackend.onrender.com/leetcode/dailyChallenge",
+        {}
+      );
       setQuestion(data);
     };
-    if (!question)
-      fetchQuestion();
+    if (!question) fetchQuestion();
   }, [question]);
 
+  // Redirect after 10 seconds if question and link are available
   useEffect(() => {
     if (question && question.link) {
       console.log("Redirecting to: ", "https://leetcode.com" + question.link);
-      var temp="https://leetcode.com" + question.link;
-      console.log(temp);
-      redirect(temp);
+      setTimeout(() => {
+        const temp = "https://leetcode.com" + question.link;
+        console.log(temp);
+        redirect(temp);
+      }, 10000); // Delay of 10 seconds (10000 milliseconds)
     }
   }, [question]);
 
+  // JSX returned by the component
   return (
-    <div>
-      {question ? (
-        <div>
-          Redirecting...
-        </div>
-      ) : (
-        <div>Loading...</div>
-      )}
+    <div className="flex flex-col justify-center items-center h-screen m-auto p-auto">
+      <div className="flex flex-col justify-center items-center h-screen m-auto p-auto">
+        {question ? (
+          <div className="flex flex-col justify-center items-center h-screen m-auto p-auto">
+            <p className="text-3xl font-semibold">Redirecting...</p>
+          </div>
+        ) : (
+          <div className="flex flex-col justify-center items-center h-screen m-auto p-auto">
+            <h3 className="text-4xl font-semibold mb-4">
+              A product by{" "}
+              <a
+                className="text-blue-500 hover:underline"
+                href="https://twitter.com/raghu_rtr"
+              >
+                RTR
+              </a>
+            </h3>
+            <p className="text-2xl">Loading...</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

@@ -6,9 +6,12 @@ const app = express();
 
 app.use(express.json());
 
-app.use(cors({
-    origin: 'https://leetcode.rtrdev.me'
-}));
+app.use(cors(
+    {
+        origin: 'https://leetcode.rtrdev.me/',
+        credentials: true
+    }
+));
 
 app.use('/leetcode', router);
 

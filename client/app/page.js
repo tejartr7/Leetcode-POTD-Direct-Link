@@ -3,32 +3,36 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
 import ThemeSwitch from "./switch";
-
+import { useRouter } from 'next/navigation'
 // Define the Home component
 export default function Home() {
   // Initialize state variables
   const [question, setQuestion] = useState(null);
-
+  const router = useRouter();
   // Fetch data on component mount
   useEffect(() => {
     const fetchQuestion = async () => {
       const { data } = await axios.get(
-        "https://lcpotdbackend.onrender.com/leetcode/dailyChallenge",
-        {}
+        "http://localhost:8000/leetcode/dailyChallenge",
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
       );
+      console.log(data);
       setQuestion(data);
     };
     if (!question) fetchQuestion();
   }, [question]);
 
-  // Redirect after 10 seconds if question and link are available
   useEffect(() => {
     if (question && question.link) {
-      console.log("Redirecting to: ", "https://leetcode.com" + question.link);
+      //console.log("Redirecting to: ", "https://leetcode.com" + question.link);
       setTimeout(() => {
         const temp = "https://leetcode.com" + question.link;
         console.log(temp);
-        redirect(temp);
+        router.push(temp);
       }, 2000); 
     }
   }, [question]);

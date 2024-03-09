@@ -1,7 +1,9 @@
 import express from "express";
 import cors from "cors";
+import fetch from "node-fetch"; // Import fetch to make HTTP requests
 import LeetCode from "leetcode-query";
-
+import router from "./routes/leetcode.js";
+const BASE_URL = "https://leetcode.com/graphql";
 const app = express();
 
 app.use(express.json());
@@ -11,23 +13,55 @@ app.use(
     origin: "*",
   })
 );
-
-app.get("/", async (req, res) => {
-  const leetcode = new LeetCode();
-  try {
-    const daily = await leetcode.daily();
-    if (daily && daily.link) {
-      console.log("Redirecting to: ", "https://leetcode.com" + daily.link);
-      res.redirect("https://leetcode.com" + daily.link);
-    } else {
-      console.error("Daily challenge link not found");
-      res.status(404).json({ message: "Daily challenge link not found" });
+export const questionOfTodayQuery = `
+  query questionOfToday {
+    activeDailyCodingChallengeQuestion {
+      date
+      userStatus
+      link
+      question {
+        acRate
+        difficulty
+        freqBar
+        frontendQuestionId: questionFrontendId
+        isFavor
+        paidOnly: isPaidOnly
+        status
+        title
+        titleSlug
+        hasVideoSolution
+        hasSolution
+        topicTags {
+          name
+          id
+          slug
+        }
+      }
     }
-  } catch (e) {
-    console.error("Error fetching daily challenge:", e);
-    res.status(500).json({ message: "Internal Server Error" });
   }
-});
+`;
+const fetchGraphQLData = async (query, variables) => {
+  const options = {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      query,
+      variables,
+    }),
+  };
+  try {
+    const response = await fetch(BASE_URL, options);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+app.use('/leetcode',router);
+
 
 const PORT = 8000;
 app.listen(PORT, () => console.log(`Server Running on port ${PORT}`));

@@ -17,7 +17,8 @@ router.get("/dailyChallenge", async (req, res) => {
     const daily = await leetcode.daily();
     if (daily && daily.link) {
       console.log("Redirecting to: ", "https://leetcode.com" + daily.link);
-      res.redirect("https://leetcode.com" + daily.link);
+      res.json(daily);
+      //res.redirect("https://leetcode.com" + daily.link);
     } else {
       res.status(404).json({ message: "Daily challenge link not found" });
     }

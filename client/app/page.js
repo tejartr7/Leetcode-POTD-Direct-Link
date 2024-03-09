@@ -3,19 +3,26 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
 import ThemeSwitch from "./switch";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 import LeetCode from "leetcode-query";
 // Define the Home component
 export default function Home() {
   // Initialize state variables
   const [question, setQuestion] = useState(null);
   const router = useRouter();
-  const leetcode = new LeetCode();
   // Fetch data on component mount
   useEffect(() => {
     //console.log("Fetching question");
     const fetchQuestion = async () => {
-      const { data } = await axios.get('https://localhost:8000/');
+      const { data } = await axios.get(
+        "https://lcpotdbackend.onrender.com/leetcode/dailyChallenge",
+        {
+          headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        }
+      );
       console.log(data);
       setQuestion(data);
     };
@@ -24,12 +31,12 @@ export default function Home() {
 
   useEffect(() => {
     if (question && question.link) {
-      //console.log("Redirecting to: ", "https://leetcode.com" + question.link);
+      console.log("Redirecting to: ", "https://leetcode.com" + question.link);
       setTimeout(() => {
-        const temp = "https://leetcode.com" + question;
+        const temp = "https://leetcode.com" + question.link;
         console.log(temp);
         router.push(temp);
-      }, 2000); 
+      }, 2000);
     }
   }, [question]);
 

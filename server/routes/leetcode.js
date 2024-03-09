@@ -1,9 +1,12 @@
 import { LeetCode } from "leetcode-query";
 import express from "express";
-
+import cors from "cors";
 const leetcode = new LeetCode();
 const router = express.Router();
-
+router.use(cors({
+    origin: 'https://leetcode.rtrdev.me/',
+    credentials: true
+}));
 router.get("/dailyChallenge", async (req, res) => {
   console.log("leetcode daily challenge called");
   try {

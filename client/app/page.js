@@ -11,9 +11,10 @@ export default function Home() {
   const router = useRouter();
   // Fetch data on component mount
   useEffect(() => {
+    //console.log("Fetching question");
     const fetchQuestion = async () => {
       const { data } = await axios.get(
-        "http://lcpotdbackend.onrender.com/leetcode/dailyChallenge"
+        "http://localhost:8000/leetcode/dailyChallenge"
       );
       console.log(data);
       setQuestion(data);
@@ -25,7 +26,7 @@ export default function Home() {
     if (question && question.link) {
       //console.log("Redirecting to: ", "https://leetcode.com" + question.link);
       setTimeout(() => {
-        const temp = "https://leetcode.com" + question.link;
+        const temp = "https://leetcode.com" + question;
         console.log(temp);
         router.push(temp);
       }, 2000); 

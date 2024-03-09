@@ -16,6 +16,7 @@ router.get("/dailyChallenge", async (req, res) => {
       res.send(daily.link + " " + daily.title);
     } else {
       res.status(404).json({ message: "Daily challenge link not found" });
+      res.send("Daily challenge link not found");
     }
   } catch (error) {
     console.error("Error fetching daily challenge:", error);

@@ -15,7 +15,7 @@ export default function Home() {
   useEffect(() => {
     //console.log("Fetching question");
     const fetchQuestion = async () => {
-      const { data } = await leetcode.daily();
+      const { data } = await axios.get('https://lcpotdbackend.onrender.com/leetcode/dailyChallenge');
       console.log(data);
       setQuestion(data);
     };

@@ -12,13 +12,13 @@ app.use(cors({
 }));
 app.use('/leetcode', router);
 // Middleware to add Access-Control-Allow-Origin header
-// app.use((req, res, next) => {
-//     res.setHeader('Access-Control-Allow-Origin', '*');
-//     // Add other CORS headers if needed
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-//     // Allow credentials if needed
-//     res.setHeader('Access-Control-Allow-Credentials', 'true');
-//     next();
-// });
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    // Add other CORS headers if needed
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    // Allow credentials if needed
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    next();
+});
 app.listen(8000, () => console.log('Server Running'));

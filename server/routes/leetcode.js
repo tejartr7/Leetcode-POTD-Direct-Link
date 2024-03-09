@@ -4,7 +4,7 @@ import cors from "cors";
 const leetcode = new LeetCode();
 const router = express.Router();
 router.use(cors({
-    origin: '*',
+    origin: "*",
     credentials: true
 }));
 router.get("/dailyChallenge", async (req, res) => {

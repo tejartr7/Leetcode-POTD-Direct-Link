@@ -3,9 +3,12 @@ import express from "express";
 import cors from "cors";
 const leetcode = new LeetCode();
 const router = express.Router();
-router.use(cors({
+router.use(
+  cors({
     origin: "*",
-}));
+  })
+);
+router.use(express.json());
 router.get("/dailyChallenge", async (req, res) => {
   console.log("leetcode daily challenge called");
   try {
@@ -23,5 +26,13 @@ router.get("/dailyChallenge", async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
-
+router.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  // Add other CORS headers if needed
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  // Allow credentials if needed
+  res.setHeader("Access-Control-Allow-Credentials", "true");
+  next();
+});
 export default router;

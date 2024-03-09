@@ -4,18 +4,18 @@ import { useState, useEffect } from "react";
 import { redirect } from "next/navigation";
 import ThemeSwitch from "./switch";
 import { useRouter } from 'next/navigation'
+import LeetCode from "leetcode-query";
 // Define the Home component
 export default function Home() {
   // Initialize state variables
   const [question, setQuestion] = useState(null);
   const router = useRouter();
+  const leetcode = new LeetCode();
   // Fetch data on component mount
   useEffect(() => {
     //console.log("Fetching question");
     const fetchQuestion = async () => {
-      const { data } = await axios.get(
-        "http://localhost:8000/leetcode/dailyChallenge"
-      );
+      const { data } = await leetcode.daily();
       console.log(data);
       setQuestion(data);
     };

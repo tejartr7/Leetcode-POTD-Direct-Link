@@ -29,7 +29,7 @@ export default function Home() {
         const temp = "https://leetcode.com" + question.link;
         console.log(temp);
         redirect(temp);
-      }, 10000); // Delay of 10 seconds (10000 milliseconds)
+      }, 2000); 
     }
   }, [question]);
 

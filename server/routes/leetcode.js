@@ -5,7 +5,6 @@ const leetcode = new LeetCode();
 const router = express.Router();
 router.use(cors({
     origin: "*",
-    credentials: true
 }));
 router.get("/dailyChallenge", async (req, res) => {
   console.log("leetcode daily challenge called");

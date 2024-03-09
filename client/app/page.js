@@ -13,7 +13,7 @@ export default function Home() {
   useEffect(() => {
     const fetchQuestion = async () => {
       const { data } = await axios.get(
-        "http://localhost:8000/leetcode/dailyChallenge",
+        "https://lcpotdbackend.onrender.com/leetcode/dailyChallenge",
         {
           headers: {
             "Access-Control-Allow-Origin": "*",

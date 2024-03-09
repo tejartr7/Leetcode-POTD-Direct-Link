@@ -4,7 +4,7 @@ import cors from "cors";
 const leetcode = new LeetCode();
 const router = express.Router();
 router.use(cors({
-    origin: 'https://leetcode.rtrdev.me/',
+    origin: '*',
     credentials: true
 }));
 router.get("/dailyChallenge", async (req, res) => {
@@ -13,7 +13,7 @@ router.get("/dailyChallenge", async (req, res) => {
     const daily = await leetcode.daily();
     if (daily && daily.link) {
       console.log("Redirecting to: ", "https://leetcode.com" + daily.link);
-      res.json(daily);
+      res.status(200).json(daily);
     } else {
       res.status(404).json({ message: "Daily challenge link not found" });
     }

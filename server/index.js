@@ -36,8 +36,15 @@ fetcher.set(async (...args) => {
 });
 
 async function main() {
+  console.log("Fetching daily question");
   const lc = new LeetCode();
-  const daily = await lc.daily();
+  var daily = "";
+  try{
+    daily=await lc.daily();
+  }
+  catch(e){
+    console.log(error);
+  }
   return daily;
 }
 

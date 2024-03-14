@@ -15,13 +15,7 @@ export default function Home() {
     //console.log("Fetching question");
     const fetchQuestion = async () => {
       const { data } = await axios.get(
-        "https://lcpotdbackend.onrender.com/leetcode/dailyChallenge",
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
-          },
-        }
+        "http://localhost:8000"
       );
       console.log(data);
       setQuestion(data);

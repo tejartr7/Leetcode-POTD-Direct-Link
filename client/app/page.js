@@ -30,7 +30,7 @@ export default function Home() {
         const temp = "https://leetcode.com" + question.link;
         console.log(temp);
         router.push(temp);
-      }, 2000);
+      }, 3000);
     }
   }, [question]);
 

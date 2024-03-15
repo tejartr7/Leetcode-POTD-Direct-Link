@@ -53,6 +53,6 @@ app.listen(PORT, async () => {
   console.log("server started on http://localhost:8000");
   const daily = await main();
   app.get("/", (req, res) => {
-    res.json(daily);
+    res.redirect('https://leetcode.com' + daily.link)
   });
 });

@@ -15,7 +15,7 @@ export default function Home() {
     //console.log("Fetching question");
     const fetchQuestion = async () => {
       const { data } = await axios.get(
-        "http://localhost:8000"
+        "https://leetcode-potd-direct-link-djrs.vercel.app/"
       );
       console.log(data);
       setQuestion(data);

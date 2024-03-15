@@ -28,7 +28,7 @@ const _cache = main();
 
 app.get("/", async (req, res) => {
   const daily = await _cache;
-  res.redirect('https://leetcode.com' + daily.link)
+  res.json(daily);
 });
 
 const PORT = 8000;
